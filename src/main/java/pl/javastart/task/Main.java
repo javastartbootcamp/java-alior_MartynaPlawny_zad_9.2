@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    static Pattern[] patterns = new Pattern[]{
+    private static final Pattern[] patterns = new Pattern[]{
             Pattern.compile("(\\d{4})-(0[1-9]|1[0-2])-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})"),
             Pattern.compile("(\\d{2}).(0[1-9]|1[0-2]).(\\d{4}) (\\d{2}):(\\d{2}):(\\d{2})"),
             Pattern.compile("(\\d{4})-(0[1-9]|1[0-2])-(\\d{2}$)")
@@ -21,9 +21,8 @@ public class Main {
         main.run(new Scanner(System.in));
     }
 
-    public boolean validationWithregex(String expression) {
+    public boolean validationWithRegex(String expression) {
         boolean patternFind = false;
-
 
         for (Pattern item : patterns) {
             Matcher matcher = item.matcher(expression);
@@ -47,10 +46,10 @@ public class Main {
     }
 
     public void datetimeCalculations(String dateFromUserAfterReformat) {
-        String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
         // parsed String to dateTime
-        LocalDateTime localDateTime = LocalDateTime.parse(dateFromUserAfterReformat, DateTimeFormatter.ofPattern(DATE_FORMAT));
+        LocalDateTime localDateTime = LocalDateTime.parse(dateFromUserAfterReformat, DateTimeFormatter.ofPattern(dateFormat));
 
         // local date time at your system's default time zone
         ZonedDateTime systemZoneDateTime = localDateTime.atZone(ZoneId.systemDefault());
@@ -79,7 +78,7 @@ public class Main {
         System.out.println("Wprowadź datę:");
         String dateFromUser = scanner.nextLine();
 
-        while (!validationWithregex(dateFromUser)) {
+        while (!validationWithRegex(dateFromUser)) {
             System.out.println("Data w nieprawidłowym formacie, spróbuj ponownie");
             dateFromUser = scanner.nextLine();
         }
